@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce API Test Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .response {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-top: 1rem;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .token-display {
+            background: #e9ecef;
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-family: monospace;
+            word-break: break-all;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛍️ E-commerce API Test Interface</h1>
+            <p>Test all the API endpoints for the e-commerce platform</p>
+        </div>
+
+        <!-- Authentication Section -->
+        <div class="section">
+            <h2>🔐 Authentication</h2>
+            <div id="auth-status" class="status hidden"></div>
+            <div id="token-display" class="token-display hidden"></div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Register User</h3>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="reg-username">Username:</label>
+                            <input type="text" id="reg-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-email">Email:</label>
+                            <input type="email" id="reg-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password">Password:</label>
+                            <input type="password" id="reg-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-role">Role:</label>
+                            <select id="reg-role">
+                                <option value="customer">Customer</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn">Register</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Login</h3>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Email:</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password:</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="section">
+            <h2>📦 Products</h2>
+            <div id="products-status" class="status hidden"></div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Get Products</h3>
+                    <form id="get-products-form">
+                        <div class="form-group">
+                            <label for="search">Search:</label>
+                            <input type="text" id="search" placeholder="Product name...">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category:</label>
+                            <input type="text" id="category" placeholder="Category...">
+                        </div>
+                        <div class="form-group">
+                            <label for="page">Page:</label>
+                            <input type="number" id="page" value="1" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="limit">Limit:</label>
+                            <input type="number" id="limit" value="10" min="1" max="50">
+                        </div>
+                        <button type="submit" class="btn">Get Products</button>
+                    </form>
+                </div>
+
+                <div class="card" id="admin-products" style="display: none;">
+                    <h3>Create Product (Admin Only)</h3>
+                    <form id="create-product-form">
+                        <div class="form-group">
+                            <label for="product-name">Name:</label>
+                            <input type="text" id="product-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-description">Description:</label>
+                            <textarea id="product-description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price">Price:</label>
+                            <input type="number" id="product-price" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-category">Category:</label>
+                            <input type="text" id="product-category" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-stock">Stock:</label>
+                            <input type="number" id="product-stock" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-image">Image URL:</label>
+                            <input type="url" id="product-image">
+                        </div>
+                        <button type="submit" class="btn">Create Product</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="products-response" class="response hidden"></div>
+        </div>
+
+        <!-- Cart Section -->
+        <div class="section" id="cart-section" style="display: none;">
+            <h2>🛒 Shopping Cart</h2>
+            <div id="cart-status" class="status hidden"></div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Add to Cart</h3>
+                    <form id="add-to-cart-form">
+                        <div class="form-group">
+                            <label for="cart-product-id">Product ID:</label>
+                            <input type="text" id="cart-product-id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cart-quantity">Quantity:</label>
+                            <input type="number" id="cart-quantity" value="1" min="1" required>
+                        </div>
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Cart Actions</h3>
+                    <button onclick="getCart()" class="btn">Get Cart</button>
+                    <button onclick="clearCart()" class="btn btn-danger">Clear Cart</button>
+                </div>
+            </div>
+            
+            <div id="cart-response" class="response hidden"></div>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="section" id="orders-section" style="display: none;">
+            <h2>📋 Orders</h2>
+            <div id="orders-status" class="status hidden"></div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Create Order</h3>
+                    <form id="create-order-form">
+                        <div class="form-group">
+                            <label for="order-street">Street:</label>
+                            <input type="text" id="order-street" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="order-city">City:</label>
+                            <input type="text" id="order-city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="order-state">State:</label>
+                            <input type="text" id="order-state" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="order-zip">ZIP Code:</label>
+                            <input type="text" id="order-zip" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="order-country">Country:</label>
+                            <input type="text" id="order-country" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Create Order</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Order Actions</h3>
+                    <button onclick="getUserOrders()" class="btn">Get My Orders</button>
+                </div>
+            </div>
+            
+            <div id="orders-response" class="response hidden"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        let authToken = localStorage.getItem('authToken');
+        let currentUser = null;
+
+        // Show/hide sections based on authentication
+        function updateUI() {
+            const cartSection = document.getElementById('cart-section');
+            const ordersSection = document.getElementById('orders-section');
+            const adminProducts = document.getElementById('admin-products');
+            const tokenDisplay = document.getElementById('token-display');
+            const authStatus = document.getElementById('auth-status');
+
+            if (authToken && currentUser) {
+                cartSection.style.display = 'block';
+                ordersSection.style.display = 'block';
+                tokenDisplay.style.display = 'block';
+                tokenDisplay.textContent = `Token: ${authToken.substring(0, 50)}...`;
+                
+                if (currentUser.role === 'admin') {
+                    adminProducts.style.display = 'block';
+                }
+
+                authStatus.className = 'status success';
+                authStatus.textContent = `Logged in as: ${currentUser.username} (${currentUser.role})`;
+                authStatus.style.display = 'block';
+            } else {
+                cartSection.style.display = 'none';
+                ordersSection.style.display = 'none';
+                adminProducts.style.display = 'none';
+                tokenDisplay.style.display = 'none';
+                authStatus.style.display = 'none';
+            }
+        }
+
+        // API helper function
+        async function apiCall(endpoint, options = {}) {
+            const url = `${API_BASE}${endpoint}`;
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                },
+                ...options
+            };
+
+            if (authToken) {
+                config.headers.Authorization = `Bearer ${authToken}`;
+            }
+
+            try {
+                const response = await fetch(url, config);
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'API call failed');
+                }
+                
+                return data;
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        // Authentication handlers
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            try {
+                const data = await apiCall('/auth/register', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        username: document.getElementById('reg-username').value,
+                        email: document.getElementById('reg-email').value,
+                        password: document.getElementById('reg-password').value,
+                        role: document.getElementById('reg-role').value
+                    })
+                });
+
+                authToken = data.token;
+                currentUser = data.user;
+                localStorage.setItem('authToken', authToken);
+                updateUI();
+                
+                showStatus('auth-status', 'Registration successful!', 'success');
+            } catch (error) {
+                showStatus('auth-status', error.message, 'error');
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const data = await apiCall('/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        email: document.getElementById('login-email').value,
+                        password: document.getElementById('login-password').value
+                    })
+                });
+
+                authToken = data.token;
+                currentUser = data.user;
+                localStorage.setItem('authToken', authToken);
+                updateUI();
+                
+                showStatus('auth-status', 'Login successful!', 'success');
+            } catch (error) {
+                showStatus('auth-status', error.message, 'error');
+            }
+        });
+
+        // Products handlers
+        document.getElementById('get-products-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const params = new URLSearchParams({
+                    search: document.getElementById('search').value,
+                    category: document.getElementById('category').value,
+                    page: document.getElementById('page').value,
+                    limit: document.getElementById('limit').value
+                });
+
+                const data = await apiCall(`/products?${params}`);
+                showResponse('products-response', data);
+            } catch (error) {
+                showStatus('products-status', error.message, 'error');
+            }
+        });
+
+        document.getElementById('create-product-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const data = await apiCall('/products', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: document.getElementById('product-name').value,
+                        description: document.getElementById('product-description').value,
+                        price: parseFloat(document.getElementById('product-price').value),
+                        category: document.getElementById('product-category').value,
+                        stock: parseInt(document.getElementById('product-stock').value),
+                        imageUrl: document.getElementById('product-image').value
+                    })
+                });
+
+                showStatus('products-status', 'Product created successfully!', 'success');
+                document.getElementById('create-product-form').reset();
+            } catch (error) {
+                showStatus('products-status', error.message, 'error');
+            }
+        });
+
+        // Cart handlers
+        document.getElementById('add-to-cart-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const data = await apiCall('/cart/add', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        productId: document.getElementById('cart-product-id').value,
+                        quantity: parseInt(document.getElementById('cart-quantity').value)
+                    })
+                });
+
+                showStatus('cart-status', 'Item added to cart!', 'success');
+                showResponse('cart-response', data);
+            } catch (error) {
+                showStatus('cart-status', error.message, 'error');
+            }
+        });
+
+        async function getCart() {
+            try {
+                const data = await apiCall('/cart');
+                showResponse('cart-response', data);
+            } catch (error) {
+                showStatus('cart-status', error.message, 'error');
+            }
+        }
+
+        async function clearCart() {
+            try {
+                const data = await apiCall('/cart/clear', { method: 'DELETE' });
+                showStatus('cart-status', 'Cart cleared!', 'success');
+                showResponse('cart-response', data);
+            } catch (error) {
+                showStatus('cart-status', error.message, 'error');
+            }
+        }
+
+        // Orders handlers
+        document.getElementById('create-order-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const data = await apiCall('/orders', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        shippingAddress: {
+                            street: document.getElementById('order-street').value,
+                            city: document.getElementById('order-city').value,
+                            state: document.getElementById('order-state').value,
+                            zipCode: document.getElementById('order-zip').value,
+                            country: document.getElementById('order-country').value
+                        }
+                    })
+                });
+
+                showStatus('orders-status', 'Order created successfully!', 'success');
+                showResponse('orders-response', data);
+                document.getElementById('create-order-form').reset();
+            } catch (error) {
+                showStatus('orders-status', error.message, 'error');
+            }
+        });
+
+        async function getUserOrders() {
+            try {
+                const data = await apiCall('/orders/my-orders');
+                showResponse('orders-response', data);
+            } catch (error) {
+                showStatus('orders-status', error.message, 'error');
+            }
+        }
+
+        // Utility functions
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `status ${type}`;
+            element.style.display = 'block';
+            
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+
+        function showResponse(elementId, data) {
+            const element = document.getElementById(elementId);
+            element.textContent = JSON.stringify(data, null, 2);
+            element.style.display = 'block';
+        }
+
+        // Initialize UI
+        updateUI();
+    </script>
+</body>
+</html> 
