@@ -1,11 +1,7 @@
-Here’s the **complete `README.md`** file with your **Google Drive screenshots embedded** for each key API section. It includes the full project summary, setup instructions, and the new **📸 Screenshots/API Demo section**.
 
----
-
-````markdown
 # 🛒 E-commerce API – Node.js + Express + MongoDB
 
-A scalable, secure and modern **RESTful E-commerce backend** built using **Node.js**, **Express**, and **MongoDB**. This project was developed as part of an internship challenge for **AdaptNXT**, demonstrating backend skills like authentication, role-based access, product APIs, and more.
+A scalable, secure and modern **RESTful E-commerce backend** built using **Node.js**, **Express**, and **MongoDB** demonstrating backend skills like authentication, role-based access, product APIs, and more.
 
 ---
 
@@ -207,30 +203,4 @@ Server will run at: [http://localhost:3000](http://localhost:3000)
 ## 💬 Author
 
 👩‍💻 **ThiruAishwaryaYadav Gotte**
-📧 `your-email@example.com`
-🔗 [LinkedIn](https://www.linkedin.com/in/your-profile/)
-💼 Backend Developer Intern @ AdaptNXT
-
----
-
-## 📝 License
-
-This project is built for internship purposes. All rights reserved © 2025.
-
-```
-
----
-
-### ✅ Final Tips
-
-- Paste this into your `README.md` file.
-- Ensure all Google Drive files are **set to “Anyone with the link can view”**.
-- Push the repo to GitHub.
-
-Would you like help:
-- Deploying it to Render?
-- Adding a basic React or HTML frontend to test it?
-- Creating a GitHub repo with all this?
-
-Let me know!
-```
+📧 `aishwaryayadav100@gmail.com`
