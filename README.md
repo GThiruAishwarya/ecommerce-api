@@ -1,206 +1,180 @@
 
 # 🛒 E-commerce API – Node.js + Express + MongoDB
 
-A scalable, secure and modern **RESTful E-commerce backend** built using **Node.js**, **Express**, and **MongoDB** demonstrating backend skills like authentication, role-based access, product APIs, and more.
+A scalable, secure and modern RESTful E-commerce backend built using **Node.js**, **Express**, and **MongoDB**, demonstrating backend skills like authentication, role-based access, cart handling, product APIs, and more.
+
+🌐 **Live API**: [https://ecommerce-api-pu0z.onrender.com](https://ecommerce-api-pu0z.onrender.com)
 
 ---
 
 ## ✨ Features
 
-- 🔐 JWT-based authentication
-- 👥 Role-based access (Admin, Customer)
-- 📦 Product listing with search & pagination
-- 🛒 Cart management (add, update, remove)
-- 🧾 Order creation from cart
-- 📂 Product categories
-- 🧠 Clean code architecture
-- 🧪 Optional AI/ML integrations
+- 🔐 JWT-based authentication  
+- 👥 Role-based access (Admin, Customer)  
+- 📦 Product listing with search & pagination  
+- 🛒 Cart management (add, update, remove)  
+- 🧾 Order creation from cart  
+- 📂 Product categories  
+- 🧠 Clean code architecture  
+- ☁️ Cloud deployed (Render)  
+- 🧪 Optional AI/ML integrations (future scope)  
 
 ---
 
-## 🚀 Live API Preview (Localhost)
+## 🚀 API Endpoints
 
-| Endpoint | Description |
-|----------|-------------|
-| [`/api/health`](http://localhost:3000/api/health) | API Health check |
-| [`/api/products`](http://localhost:3000/api/products) | Fetch product list |
-| [`/api/products/categories`](http://localhost:3000/api/products/categories) | Get all product categories |
+### 📍 Auth
 
----
-
-## 🧪 Sample JSON Responses
-
-### ✅ Health Check – `/api/health`
-```json
-{
-  "message": "E-commerce API is running",
-  "timestamp": "2025-07-07T03:10:14.925Z"
-}
-````
-
-### 📦 Product Listing – `/api/products`
-
-```json
-{
-  "products": [
-    {
-      "_id": "686b381cedfd9604ace6168d",
-      "name": "Sony WH-1000XM5",
-      "description": "Wireless Noise Canceling Headphones",
-      "price": 349.99,
-      "category": "Audio",
-      "imageUrl": "https://via.placeholder.com/300x200?text=Sony+Headphones",
-      "stock": 30,
-      "isActive": true
-    }
-    // ... more products
-  ],
-  "pagination": {
-    "currentPage": 1,
-    "totalPages": 1,
-    "totalProducts": 9,
-    "hasNextPage": false,
-    "hasPrevPage": false
-  }
-}
-```
-
-### 🏷️ Product Categories – `/api/products/categories`
-
-```json
-{
-  "categories": [
-    "Audio",
-    "Footwear",
-    "Home & Kitchen",
-    "Laptops",
-    "Smartphones",
-    "Tablets",
-    "beauty"
-  ]
-}
-```
+| Method | Route               | Access    | Description           |
+|--------|---------------------|-----------|------------------------|
+| POST   | /api/auth/register  | Public    | Register a new user   |
+| POST   | /api/auth/login     | Public    | Login and get token   |
+| GET    | /api/auth/profile   | Protected | Get logged-in user    |
 
 ---
 
-## 📁 Folder Structure
+### 📍 Products
+
+| Method | Route                      | Access | Description              |
+|--------|----------------------------|--------|--------------------------|
+| GET    | /api/products              | Public | Get all products         |
+| GET    | /api/products/:id          | Public | Get product by ID        |
+| POST   | /api/products              | Admin  | Add new product          |
+| PUT    | /api/products/:id          | Admin  | Update product by ID     |
+| DELETE | /api/products/:id          | Admin  | Delete product by ID     |
+| GET    | /api/products/categories   | Public | Get all categories       |
+
+---
+
+### 🛒 Cart
+
+| Method | Route                     | Access    | Description             |
+|--------|---------------------------|-----------|-------------------------|
+| GET    | /api/cart                 | Customer  | View cart               |
+| POST   | /api/cart/add             | Customer  | Add item to cart        |
+| PUT    | /api/cart/items/:id       | Customer  | Update item quantity    |
+| DELETE | /api/cart/items/:id       | Customer  | Remove item from cart   |
+| DELETE | /api/cart/clear           | Customer  | Clear the cart          |
+
+---
+
+### 📦 Orders
+
+| Method | Route                      | Access    | Description             |
+|--------|----------------------------|-----------|-------------------------|
+| POST   | /api/orders                | Customer  | Create an order         |
+| GET    | /api/orders/my-orders      | Customer  | View user's orders      |
+| GET    | /api/orders                | Admin     | View all orders         |
+| PUT    | /api/orders/:id/status     | Admin     | Update order status     |
+
+---
+
+## 📂 Folder Structure
 
 ```
+
 ecommerce-api/
 ├── controllers/
 ├── middleware/
 ├── models/
 ├── routes/
-├── .env
 ├── server.js
+├── .env
 ├── package.json
-```
+
+````
 
 ---
 
-## 📦 API Endpoints
+## 📸 Screenshots
 
-### 👤 Auth
+### 🔹 Health Check  
+![Health](https://drive.google.com/uc?export=view&id=1tdVT8HGD4ARjRDeD1wjaAufBgANmF9Gw)
 
-| Method | Route                | Description         |
-| ------ | -------------------- | ------------------- |
-| POST   | `/api/auth/register` | Register new user   |
-| POST   | `/api/auth/login`    | Login and get token |
-| GET    | `/api/auth/profile`  | Get current user    |
+### 🔹 Product Listing  
+![Products](https://drive.google.com/uc?export=view&id=1Bbu7TeZh0A6luM8X3hCeNeSvWCXTqscC)
 
-### 📦 Products
+### 🔹 Product Categories  
+![Categories](https://drive.google.com/uc?export=view&id=1AGMlyo51xzxFeLkmxYUjCDP6yPifNvNu)
 
-| Method | Route                      | Access | Description        |
-| ------ | -------------------------- | ------ | ------------------ |
-| GET    | `/api/products`            | Public | Get all products   |
-| GET    | `/api/products/:id`        | Public | Single product     |
-| POST   | `/api/products`            | Admin  | Add product        |
-| PUT    | `/api/products/:id`        | Admin  | Update product     |
-| DELETE | `/api/products/:id`        | Admin  | Delete product     |
-| GET    | `/api/products/categories` | Public | Get all categories |
+### 🔹 Customer Login  
+![Login](https://drive.google.com/uc?export=view&id=1bham-NZp0oYwmP6JjldveCsqVM1FoZ9A)
 
-### 🛒 Cart
+### 🔹 Customer Product View  
+![Customer Products](https://drive.google.com/uc?export=view&id=1iFgEB__K7rB_FAj9zkVl7lVK6eP52MyB)
 
-| Method | Route                 | Access   | Description     |
-| ------ | --------------------- | -------- | --------------- |
-| GET    | `/api/cart`           | Customer | View cart       |
-| POST   | `/api/cart/add`       | Customer | Add to cart     |
-| PUT    | `/api/cart/items/:id` | Customer | Update quantity |
-| DELETE | `/api/cart/items/:id` | Customer | Remove item     |
-| DELETE | `/api/cart/clear`     | Customer | Clear cart      |
+### 🔹 Shopping Cart  
+![Cart](https://drive.google.com/uc?export=view&id=1EOjdTQMmVFTH52bR0_g8jxzYjRhs1k8y)
 
-### 📃 Orders
-
-| Method | Route                    | Access   | Description         |
-| ------ | ------------------------ | -------- | ------------------- |
-| POST   | `/api/orders`            | Customer | Place an order      |
-| GET    | `/api/orders/my-orders`  | Customer | View own orders     |
-| GET    | `/api/orders`            | Admin    | View all orders     |
-| PUT    | `/api/orders/:id/status` | Admin    | Update order status |
+### 🔹 Orders  
+![Orders](https://drive.google.com/uc?export=view&id=1LoTeJfcLsXGSIcniUR5LL8-V1rAAFVVn)
 
 ---
 
-## ⚙️ How to Run Locally
+## 🎥 Project Demo – Execution & Output
 
-### 1️⃣ Clone and Install
+[![Watch Project Demo](https://drive.google.com/uc?export=view&id=1tdVT8HGD4ARjRDeD1wjaAufBgANmF9Gw)](https://drive.google.com/file/d/1ru3nRvo-XplDU1e5QRO6NMhw5MRSwUjs/view?usp=sharing)
 
+📺 **[Click here to watch full execution video](https://drive.google.com/file/d/1ru3nRvo-XplDU1e5QRO6NMhw5MRSwUjs/view?usp=sharing)**
+
+---
+
+## ✅ Assignment Criteria – Fulfilled
+
+| Requirement                         | Status | Details                          |
+|-------------------------------------|--------|----------------------------------|
+| Product Listing                     | ✅      | `/api/products` implemented     |
+| Cart Management                     | ✅      | Full cart CRUD supported        |
+| Order Creation                      | ✅      | Orders from cart + history view |
+| JWT Authentication                  | ✅      | Login & protected routes        |
+| Admin Role                          | ✅      | Can manage products & orders    |
+| Customer Role                       | ✅      | Can browse, cart, and order     |
+| Product Categories & Search         | ✅      | Categories implemented           |
+| Pagination                          | ✅      | On product list                  |
+| Basic Frontend Interaction (HTML)   | ✅      | Screenshots + video proof       |
+| Cloud Deployment (Render)           | ✅      | Live at Render link             |
+| Code Organization & .env usage      | ✅      | Modular code + secure secrets   |
+
+---
+
+## ⚙️ Run Locally
+
+1. **Clone the repo**
 ```bash
 git clone https://github.com/your-username/ecommerce-api.git
 cd ecommerce-api
 npm install
-```
+````
 
-### 2️⃣ Create `.env` file
+2. **Create `.env` file**
 
 ```env
+MONGO_URI=your-mongodb-uri
+JWT_SECRET=your-secret-key
 PORT=3000
-MONGO_URI=mongodb://localhost:27017/ecommerce-api
-JWT_SECRET=your_jwt_secret
 ```
 
-### 3️⃣ Start Server
+3. **Run the server**
 
 ```bash
-npm run dev   # Dev mode using nodemon
+npm run dev
 ```
 
-Server will run at: [http://localhost:3000](http://localhost:3000)
+---
+
+## 🧠 Technologies Used
+
+* Node.js
+* Express.js
+* MongoDB + Mongoose
+* JWT for Auth
+* bcryptjs for Password Hashing
+* Nodemon for Dev Server
+* Render (Cloud Deployment)
 
 ---
 
-## 📸 Screenshots / API Demo
+## 👤 Author
 
-### 🔹 Health Check
-
-![Health Check](https://drive.google.com/uc?export=view\&id=1tdVT8HGD4ARjRDeD1wjaAufBgANmF9Gw)
-
-### 🔹 Product Listing
-
-![Products](https://drive.google.com/uc?export=view\&id=1Bbu7TeZh0A6luM8X3hCeNeSvWCXTqscC)
-
-### 🔹 Product Categories
-
-![Categories](https://drive.google.com/uc?export=view\&id=1AGMlyo51xzxFeLkmxYUjCDP6yPifNvNu)
-
-### 🔹 Customer Login
-
-![Customer Login](https://drive.google.com/uc?export=view\&id=1bham-NZp0oYwmP6JjldveCsqVM1FoZ9A)
-
-### 🔹 Customer Product View
-
-![Customer Products](https://drive.google.com/uc?export=view\&id=1iFgEB__K7rB_FAj9zkVl7lVK6eP52MyB)
-
-### 🔹 Shopping Cart
-
-![Shopping Cart](https://drive.google.com/uc?export=view\&id=1EOjdTQMmVFTH52bR0_g8jxzYjRhs1k8y)
-
-### 🔹 Orders
-
-![Orders](https://drive.google.com/uc?export=view\&id=1LoTeJfcLsXGSIcniUR5LL8-V1rAAFVVn)
-
----
-
-## 💬 Author
-
-👩‍💻 **ThiruAishwaryaYadav Gotte**
-📧 `aishwaryayadav100@gmail.com`
+**ThiruAishwaryaYadav Gotte**
+📧 [aishwaryayadav100@gmail.com](mailto:aishwaryayadav100@gmail.com)
